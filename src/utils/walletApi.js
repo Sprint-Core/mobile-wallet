@@ -88,11 +88,11 @@ const coinGeckoExchangeRateHelper = async ({ selectedCrypto = "bitcoin", selecte
 	let exchangeRate = 0;
 	try {
 		let coin = selectedCrypto.toLowerCase();
-		coin = coin.replace("testnet", "");
-
+    if (selectedCrypto == "sprint") {coin = "sprint-coin"} else {coin = coin.replace("testnet", "")};
 		const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=${selectedCurrency}`);
 		const jsonResponse = await response.json();
-		exchangeRate = Number(jsonResponse[selectedCrypto][selectedCurrency]).toFixed(2);
+    if (selectedCrypto == "sprint") {exchangeRate = Number(jsonResponse["sprint-coin"][selectedCurrency]).toFixed(6)} else
+	  	{exchangeRate = Number(jsonResponse[selectedCrypto][selectedCurrency]).toFixed(2)};
 		if (exchangeRate === 0 || isNaN(exchangeRate)) return ({ error: true, data: "Invalid Exchange Rate Data." });
 		return ({ error: false, data: exchangeRate });
 	} catch (e) {
@@ -250,14 +250,14 @@ const electrumHistoryHelper = async ({ allAddresses = [], addresses = [], change
 									} catch {}
 								}));
 							}
-							
+
 							try {
 								if (isInputMatch) inputAmount = Number((inputAmount + Number(vout.value)).toFixed(8));
 								transactionInputAmount = Number((transactionInputAmount + Number(vout.value)).toFixed(8));
 							} catch {}
 						} catch {}
 					}));
-					
+
 					//Iterate over each output and add it's satoshi value to outputAmount
 					await Promise.all(decodedTransaction.vout.map(async (output) => {
 						try {
@@ -279,7 +279,7 @@ const electrumHistoryHelper = async ({ allAddresses = [], addresses = [], change
 										outputAddressMatch = true;
 									}
 								}));
-								
+
 							} catch {
 								nIndexIsUndefined = true;
 							}
@@ -318,7 +318,7 @@ const electrumHistoryHelper = async ({ allAddresses = [], addresses = [], change
 					receivedAmount = totalAmount;
 					amount = totalAmount;
 				}
-				
+
 				if (inputAddressMatch && outputAddressMatch && transactionOutputAmount === outputAmount) {
 					type = "sent";
 					amount = 0;

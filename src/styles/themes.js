@@ -1,21 +1,22 @@
 export const themes = {
 	light: {
 		mode: "light",
-		gradient:["#8e45bf", "#7931ab", "#5e1993", "#59158e"],
+		//gradient:["#8e45bf", "#7931ab", "#5e1993", "#59158e"],
+		gradient:["#193e8a", "#0e2c6b", "#022c5a", "#011c3a"],
 		transparent: "transparent",
 		background: "#FFF",
 		background2: "#FFF",
 		background3: "#efefef",
-		button: "#5d2390", //colors.mediumPurple
+		button: "#17afd8", //colors.mediumPurple
 		card: "#FFF",
 		card2: "#FFF",
-		card3: "#631e9a", //colors.purple
-		text: "#631e9a", //colors.purple
-		text2: "#57158f", //colors.darkPurple
-		text3: "#a25ad7", //colors.lightPurple
-		PRIMARY: "#631e9a", //colors.purple
-		PRIMARY_DARK: "#57158f", //colors.darkPurple
-		lightPurple: "#a25ad7",
+		card3: "#011c3a", //colors.purple
+		text: "#011c3a", //colors.purple
+		text2: "#011c3a", //colors.darkPurple
+		text3: "#011c3a", //colors.lightPurple
+		PRIMARY: "#011c3a", //colors.purple
+		PRIMARY_DARK: "#011c3a", //colors.darkPurple
+		lightPurple: "#193e8a",
 		white: "#FFF",
 		gray: "#efefef", //colors.lightGray
 		gray2: "#6e6e6e", //colors.darkGray
