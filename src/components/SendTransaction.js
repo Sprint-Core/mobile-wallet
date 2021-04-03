@@ -1033,7 +1033,7 @@ class SendTransaction extends Component {
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={[styles.rightIconContainer, {
-								backgroundColor: this.state.spendMaxAmount ? "#813fb1" : this.getTheme().background2
+								backgroundColor: this.state.spendMaxAmount ? "#16afdb" : this.getTheme().background2
 							}]}
 							onPress={this.onMaxPress}
 						>
@@ -1218,7 +1218,7 @@ class SendTransaction extends Component {
 										<Button
 											title="Copy TxHex"
 											loading={this.state.generatingTxHex}
-											style={{ backgroundColor: "#813fb1" }}
+											style={{ backgroundColor: "#16afdb" }}
 											onPress={async () => {
 												this.setState({ generatingTxHex: true });
 												let rawTx = await this.createTransaction();
@@ -1232,7 +1232,7 @@ class SendTransaction extends Component {
 												if (this.state.rawTx !== rawTx) this.setState({ rawTx });
 											}}
 										/>
-										<Button style={{ backgroundColor: "#813fb1" }} title="Send" onPress={this.sendTransaction} activeOpacity={0.6} />
+										<Button style={{ backgroundColor: "#16afdb" }} title="Send" onPress={this.sendTransaction} activeOpacity={0.6} />
 									</View>
 								</View>
 							</View>

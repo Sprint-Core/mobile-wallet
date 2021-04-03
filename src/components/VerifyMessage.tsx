@@ -34,7 +34,7 @@ const _VerifyMessage = (
 			message: "",
 			signature: "",
 		},
-		selectedCrypto = "bitcoin",
+		selectedCrypto = "sprint",
 		updateSettings = () => null
 	}: ImportPhraseComponent) => {
 	const [dataIsValid, setDataIsValid] = useState(false);

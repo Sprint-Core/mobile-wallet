@@ -32,7 +32,7 @@ const getDefaultPeers = (coin, protocol) => {
 	});
 };
 
-const getScriptHash = (address = "", network = networks["bitcoin"]) => {
+const getScriptHash = (address = "", network = networks["sprint"]) => {
 	const script = bitcoin.address.toOutputScript(address, network);
 	let hash = bitcoin.crypto.sha256(script);
 	const reversedHash = new Buffer(hash.reverse());
@@ -91,7 +91,7 @@ const batchAddresses = ({ coin = "bitcoinTestnet", scriptHashes = [] } = {}) => 
 	});
 }
 
-const connectToPeer = ({ port = 50002, host = "", protocol = "ssl", coin = "bitcoin" } = {}) => {
+const connectToPeer = ({ port = 50002, host = "", protocol = "ssl", coin = "sprint" } = {}) => {
 	return new Promise(async (resolve) => {
 		try {
 			clients.coin = coin;
@@ -212,7 +212,7 @@ const stop = async ({ coin = "" } = {}) => {
 			resolve({ error: true, data: e });
 		}
 	});
-	
+
 };
 
 const promiseTimeout = (ms, promise) => {
@@ -222,7 +222,7 @@ const promiseTimeout = (ms, promise) => {
 			resolve({ error: true, data: "Timed Out." });
 		}, ms);
 	});
-	
+
 	return Promise.race([
 		promise,
 		timeout
@@ -247,7 +247,7 @@ const subscribeHeader = async ({ id = "subscribeHeader", coin = "", onReceive = 
 	}
 };
 
-const subscribeAddress = async ({ id = "wallet0bitcoin", address = "", coin = "bitcoin", onReceive = (data) => console.log(data) } = {}) => {
+const subscribeAddress = async ({ id = "wallet0bitcoin", address = "", coin = "sprint", onReceive = (data) => console.log(data) } = {}) => {
 	try {
 		if (clients.mainClient[coin] === false) await connectToRandomPeer(coin, clients.peers[coin]);
 		//Ensure this address is not already subscribed

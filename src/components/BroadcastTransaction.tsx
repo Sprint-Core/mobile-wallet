@@ -30,15 +30,15 @@ interface BroadcastTransactionComponent {
 	onBack: Function
 }
 // eslint-disable-next-line no-unused-vars
-const _defaultBroadcastTransaction = ({txHex = "", sendTransactionFallback = false, selectedCrypto = "bitcoin"} = {}) => {
+const _defaultBroadcastTransaction = ({txHex = "", sendTransactionFallback = false, selectedCrypto = "sprint"} = {}) => {
 	return { error: true, data: "" };
 };
 
-const _BroadcastTransaction = ({ broadcastTransaction = _defaultBroadcastTransaction, sendTransactionFallback = false, refreshWallet = () => null, selectedCrypto = "bitcoin", onBack = () => null }: BroadcastTransactionComponent) => {
+const _BroadcastTransaction = ({ broadcastTransaction = _defaultBroadcastTransaction, sendTransactionFallback = false, refreshWallet = () => null, selectedCrypto = "sprint", onBack = () => null }: BroadcastTransactionComponent) => {
 	const [transaction, setTransaction] = useState("");
 	const [broadcasting, setBroadcasting] = useState(false);
 	const [hash, setHash] = useState("");
-	
+
 	const updateTransaction = (transaction = ""): void => {
 		try {
 			if (hash) setHash("");
@@ -46,7 +46,7 @@ const _BroadcastTransaction = ({ broadcastTransaction = _defaultBroadcastTransac
 			setTransaction(transaction);
 		} catch (e) {}
 	};
-	
+
 	const _broadcastTransaction = async () => {
 		try {
 			if (hash) setHash("");
@@ -65,22 +65,22 @@ const _BroadcastTransaction = ({ broadcastTransaction = _defaultBroadcastTransac
 			setBroadcasting(false);
 		} catch (e) {}
 	};
-	
+
 	const viewTransaction = () => {
 		try {
 			openTxId(hash, selectedCrypto);
 		} catch (e) {}
 	};
-	
+
 	return (
 		<View type="transparent" style={styles.container}>
-			
+
 			<View style={styles.textInputContainer}>
-				
+
 				<View type="PRIMARY_DARK" style={styles.broadcastIcon}>
 					<Foundation type="white" name="mobile-signal" size={50} />
 				</View>
-				
+
 				<TextInput
 					placeholder="Please enter your raw transaction here."
 					style={styles.textInput}
@@ -92,23 +92,23 @@ const _BroadcastTransaction = ({ broadcastTransaction = _defaultBroadcastTransac
 					value={transaction}
 					multiline={true}
 				/>
-				
+
 				{hash !== "" &&
 				<Text style={[styles.text, { marginVertical: 25 }]}>
 					Success!
 				</Text>}
-				
+
 				{hash !== "" &&
 				<View style={styles.sendButton}>
 					<Button title="View Transaction" onPress={viewTransaction} />
 				</View>}
-				
+
 				{hash === "" &&
 				<View style={[styles.sendButton, { marginTop: 50 }]}>
 					<Button title="Broadcast Transaction" onPress={_broadcastTransaction} loading={broadcasting} />
 				</View>}
 			</View>
-			
+
 			<Animated.View style={styles.xButton}>
 				<XButton style={{ borderColor: "transparent" }} onPress={onBack} />
 			</Animated.View>

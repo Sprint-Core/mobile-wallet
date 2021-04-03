@@ -39,10 +39,10 @@ interface ImportPhraseComponent {
 const _SignMessage = (
 	{
 		onBack = () => null,
-		selectedCrypto = "bitcoin",
+		selectedCrypto = "sprint",
 		selectedWallet = "wallet0",
-		derivationPath = "84",
-		addressType = "bech32", //bech32, segwit or legacy
+		derivationPath = "44",
+		addressType = "legacy", //bech32, segwit or legacy
 		addresses = [{ address: "", path: "" }],
 		signMessageData = {
 			message: "",

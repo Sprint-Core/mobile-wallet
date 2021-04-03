@@ -44,7 +44,7 @@ interface EstimateData {
 
 const _FeeEstimate = (
 	{
-		selectedCrypto = "bitcoin",
+		selectedCrypto = "sprint",
 		exchangeRate = 0,
 		transactionSize = 0,
 		updateFee = () => null,

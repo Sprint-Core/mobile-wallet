@@ -146,7 +146,7 @@ export default class App extends Component {
 		bitidData: { uri: "", host: "" },
 
 		displayWelcomeModal: false,
-		
+
 		displayBIP38PassphraseModal: false,
 		bip38Data: { encryptedKey: "", passphrase: "", loading: false },
 
@@ -176,7 +176,7 @@ export default class App extends Component {
 		isAnimating: false,
 	};
 
-	setExchangeRate = async ({ selectedCrypto = "bitcoin", selectedCurrency = "usd", selectedService = "coingecko" } = {}) => {
+	setExchangeRate = async ({ selectedCrypto = "sprint", selectedCurrency = "usd", selectedService = "coingecko" } = {}) => {
 		const exchangeRate = await getExchangeRate({ selectedCrypto, selectedCurrency, selectedService });
 		if (exchangeRate.error === false) {
 			this.props.updateWallet({
@@ -189,7 +189,7 @@ export default class App extends Component {
 		return exchangeRate;
 	};
 
-	onCoinPress = async ({ coin = "bitcoin", walletId = "wallet0", initialLoadingMessage = "" } = {}) => {
+	onCoinPress = async ({ coin = "sprint", walletId = "wallet0", initialLoadingMessage = "" } = {}) => {
 		try {
 			const sameCoin = this.props.wallet.selectedCrypto === coin;
 			const sameWallet = this.props.wallet.selectedWallet === walletId;
@@ -379,7 +379,7 @@ export default class App extends Component {
 			}
 		} catch {}
 	};
-	
+
 	checkForScriptHash = async () => {
 		try {
 			const { selectedWallet, selectedCrypto } = this.props.wallet;
@@ -417,7 +417,7 @@ export default class App extends Component {
 			}
 		} catch {}
 	}
-	
+
 	addMemos = async () => {
 		try {
 			if (!("transactionMemos" in this.props.wallet)) this.props.updateWallet({ transactionMemos: {} });
@@ -465,12 +465,12 @@ export default class App extends Component {
 			}
 
 			this.setExchangeRate({ selectedCrypto, selectedService, selectedCurrency }); //Set the exchange rate for the selected currency
-			
+
 			//If the address object does not contain scriptHash data, add it for future reference.
 			//TODO: Remove once standard.
 			await this.checkForScriptHash();
 			await this.addMemos();
-			
+
 			//Update status of the user-facing loading message and progress bar
 			if (!ignoreLoading) this.setState({
 				loadingMessage: "Connecting to Electrum Server...",
@@ -899,7 +899,7 @@ export default class App extends Component {
 				{ stateId: "displayLoading", opacityId: "loadingOpacity", display: true },
 			];
 			await this.updateItems(items);
-			await this.props.updateWallet({ selectedCrypto: "bitcoin" });
+			await this.props.updateWallet({ selectedCrypto: "sprint" });
 
 			//Figure out what type of security/authentication is allowed for settings.
 			let biometricsIsSupported = false;
@@ -1569,7 +1569,7 @@ export default class App extends Component {
 		return new Promise(async (resolve) => {
 			try {
 				if (!coin) resolve({ error: true, data: {} });
-				
+
 				let response = { error: true, data: "" };
 				try {
 					let hasPeers = false;
@@ -1595,7 +1595,7 @@ export default class App extends Component {
 							coin,
 							peers: this.props.settings.peers[coin],
 							customPeers: this.props.settings.customPeers[coin],
-							
+
 						});
 					}
 				} catch {}
@@ -1609,14 +1609,14 @@ export default class App extends Component {
 			}
 		});
 	};
-	
+
 	_closeBIP38PassphraseModal = () => {
 		try {
 			this.resetView();
 			this.setState({ displayBIP38PassphraseModal: false, bip38Data: { encryptedKey: "", passphrase: "" }, });
 		} catch {}
 	};
-	
+
 	decryptBIP38Key = async () => {
 		try {
 			await this.setState({ bip38Data: { ...this.state.bip38Data, loading: true } });
@@ -1632,11 +1632,11 @@ export default class App extends Component {
 			}
 			let privKey = decryptedKey.privateKey;
 			let key = wif.encode(128, privKey, decryptedKey.compressed); // 128 for mainnet
-			
+
 			const mainnetValidationResults = await validatePrivateKey(key);
 			const { selectedWallet, selectedCrypto } = this.props.wallet;
 			if (mainnetValidationResults.isPrivateKey === true) {
-				if (selectedCrypto !== "bitcoin") await this.onCoinPress({ coin: "bitcoin", walletId: selectedWallet });
+				if (selectedCrypto !== "sprint") await this.onCoinPress({ coin: "sprint", walletId: selectedWallet });
 				await this.setState({ bip38Data: { ...this.state.bip38Data, loading: false } });
 				await this._closeBIP38PassphraseModal();
 				this.onSweep(key);
@@ -1710,7 +1710,7 @@ export default class App extends Component {
 				return;
 			}
 			const { selectedCrypto } = this.props.wallet;
-			if (bip38.verify(data) && (selectedCrypto === "bitcoin" || selectedCrypto === "bitcoinTestnet")) {
+			if (bip38.verify(data) && (selectedCrypto === "sprint" || selectedCrypto === "bitcoinTestnet")) {
 				//Remove Camera View & Display BIP38 Modal
 				await this.updateItem({ stateId: "displayCamera", opacityId: "cameraOpacity", display: false });
 				this.setState({
@@ -2285,7 +2285,7 @@ export default class App extends Component {
 								<Button textStyle={styles.text} gradient={true} style={styles.button} text="Login" onPress={this._loginWithBitid} />
 							</View>
 						</DefaultModal>
-						
+
 						<DefaultModal
 							isVisible={this.state.displayBIP38PassphraseModal}
 							onClose={this._closeBIP38PassphraseModal}

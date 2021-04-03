@@ -29,7 +29,7 @@ const updateWallet = (payload) => ({
 	payload
 });
 
-const getExchangeRate = ({ selectedCoin = "bitcoin", selectedCurrency = "usd", selectedService = "coingecko" } = {}) => () => {
+const getExchangeRate = ({ selectedCoin = "sprint", selectedCurrency = "usd", selectedService = "coingecko" } = {}) => () => {
 	return new Promise(async (resolve) => {
 
 		const failure = (errorTitle = "", errorMsg = "") => {
@@ -74,7 +74,7 @@ const deleteWallet = ({ wallet } = {}) => async (dispatch) => {
 	});
 };
 
-const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressAmount = 2, changeAddressAmount = 2, mnemonic = "", generateAllAddresses = true, keyDerivationPath = "84" } = {}) => async (dispatch) => {
+const createWallet = ({ wallet = "wallet0", selectedCrypto = "sprint", addressAmount = 2, changeAddressAmount = 2, mnemonic = "", generateAllAddresses = true, keyDerivationPath = "44" } = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({error: true, data});
@@ -84,7 +84,7 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 			if (mnemonic === "") {
 				mnemonic = bip39.generateMnemonic(256);
 			}
-			
+
 			if (bip39.validateMnemonic(mnemonic)) {
 				await setKeychainValue({ key: wallet, value: mnemonic });
 			} else {
@@ -92,12 +92,12 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 				failure("Invalid Mnemonic");
 				return;
 			}
-			
+
 			const coins = availableCoins;
-			
+
 			let allAddresses = {};
 			await Promise.all(coins.map(async (coin) => { allAddresses[coin] = { addresses: [], changeAddresses: [] };}));
-			
+
 			//Generate receiving and change addresses.
 			if (generateAllAddresses) {
 				await Promise.all(
@@ -121,7 +121,7 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 					allAddresses[selectedCrypto].changeAddresses = generatedAddresses.data.changeAddresses;
 				}
 			}
-			
+
 			let addresses = {}, changeAddresses = {};
 			await Promise.all(
 				coins.map(coin => {
@@ -134,7 +134,7 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 					}
 				})
 			);
-			
+
 			const payload = {
 				[wallet]: {
 					...defaultWalletShape,
@@ -142,12 +142,12 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 					changeAddresses
 				}
 			};
-			
+
 			await dispatch({
 				type: actions.CREATE_WALLET,
 				payload
 			});
-			
+
 			resolve({ error: false, data: allAddresses });
 		} catch (e) {
 			console.log(e);
@@ -156,7 +156,7 @@ const createWallet = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 	});
 };
 
-const resetUtxos = ({wallet = "wallet0", addresses = [], changeAddresses = [], currentBlockHeight = 0, selectedCrypto = "bitcoin"} = {}) => async (dispatch) => {
+const resetUtxos = ({wallet = "wallet0", addresses = [], changeAddresses = [], currentBlockHeight = 0, selectedCrypto = "sprint"} = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({error: true, data});
@@ -164,7 +164,7 @@ const resetUtxos = ({wallet = "wallet0", addresses = [], changeAddresses = [], c
 		try {
 			const isConnected = await isOnline();
 			if (isConnected === false) return failure();
-			
+
 			//Returns { error: false, data: { utxos, balance } }
 			const utxoResult = await walletHelpers.utxos.default({ addresses, changeAddresses, currentBlockHeight, selectedCrypto });
 			if (utxoResult.error === true) {
@@ -178,7 +178,7 @@ const resetUtxos = ({wallet = "wallet0", addresses = [], changeAddresses = [], c
 				failure();
 				return;
 			}
-			
+
 			if (isConnected && !utxoResult.error) {
 				dispatch({
 					type: actions.RESET_UTXOS,
@@ -200,7 +200,7 @@ const resetUtxos = ({wallet = "wallet0", addresses = [], changeAddresses = [], c
 	});
 };
 
-const addTransaction = ({ wallet = "wallet0", transaction = {}, selectedCrypto = "bitcoin", rbfData = {} } = {}) => async (dispatch) => {
+const addTransaction = ({ wallet = "wallet0", transaction = {}, selectedCrypto = "sprint", rbfData = {} } = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({ error: true, data });
@@ -223,7 +223,7 @@ const addTransaction = ({ wallet = "wallet0", transaction = {}, selectedCrypto =
 	});
 };
 
-const updateBalance = ({ wallet = "wallet0", utxos = [], blacklistedUtxos = [], selectedCrypto = "bitcoin" } = {}) => async (dispatch) => {
+const updateBalance = ({ wallet = "wallet0", utxos = [], blacklistedUtxos = [], selectedCrypto = "sprint" } = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({ error: true, data });
@@ -231,7 +231,7 @@ const updateBalance = ({ wallet = "wallet0", utxos = [], blacklistedUtxos = [], 
 		try {
 			const isConnected = await isOnline();
 			if (isConnected === false) return failure();
-			
+
 			let confirmedBalance = 0;
 			let unconfirmedBalance = 0;
 			try {
@@ -264,7 +264,7 @@ const updateBalance = ({ wallet = "wallet0", utxos = [], blacklistedUtxos = [], 
 	});
 };
 
-const updateBlockHeight = ({ selectedCrypto = "bitcoin" } = {}) => async (dispatch) => {
+const updateBlockHeight = ({ selectedCrypto = "sprint" } = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({ error: true, data });
@@ -296,7 +296,7 @@ const updateBlockHeight = ({ selectedCrypto = "bitcoin" } = {}) => async (dispat
 	});
 };
 
-const addAddresses = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressAmount = 5, changeAddressAmount = 5, addressIndex = 0, changeAddressIndex = 0, keyDerivationPath = "84" }) => async (dispatch) => {
+const addAddresses = ({ wallet = "wallet0", selectedCrypto = "sprint", addressAmount = 5, changeAddressAmount = 5, addressIndex = 0, changeAddressIndex = 0, keyDerivationPath = "44" }) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({error: true, data});
@@ -307,7 +307,7 @@ const addAddresses = ({ wallet = "wallet0", selectedCrypto = "bitcoin", addressA
 			if (addresses.error) {
 				addresses = { data: { addresses: [], changeAddresses: [] } };
 			}
-			
+
 			dispatch({
 				type: actions.ADD_ADDRESSES,
 				payload: {
@@ -332,7 +332,7 @@ const toggleUtxoBlacklist = ({ transaction = "", selectedWallet = "wallet0", sel
 			resolve({error: true, data});
 		};
 		try {
-			
+
 			dispatch({
 				type: actions.TOGGLE_UTXO_BLACKLIST,
 				payload: {
@@ -349,15 +349,15 @@ const toggleUtxoBlacklist = ({ transaction = "", selectedWallet = "wallet0", sel
 	});
 };
 
-const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "bitcoin", currentBlockHeight = 0, keyDerivationPath = "84" }) => async (dispatch) => {
+const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "sprint", currentBlockHeight = 0, keyDerivationPath = "44" }) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({ error: true, data });
 		};
-		
+
 		const isConnected = await isOnline();
 		if (isConnected === false) return failure("Offline");
-		
+
 		try {
 			//The threshold dictates how many empty addresses the function should search for before resolving
 			//const defaultIndexThreshold = 1;
@@ -365,13 +365,13 @@ const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "bitcoin", cur
 			let transactions = [];
 			let addressIndexes = [];
 			let changeAddressIndexes = [];
-			
+
 			//Create Addresses
 			//Generate receiving and change addresses.
 			const newAddresses = await generateAddresses({ addressAmount: 50, changeAddressAmount: 50, addressIndex: 0, selectedCrypto, wallet, keyDerivationPath });
 			const addresses = newAddresses.data.addresses;
 			const changeAddresses = newAddresses.data.changeAddresses;
-			
+
 			await Promise.all(
 				addresses.map(async (addr) => {
 					try {
@@ -408,8 +408,8 @@ const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "bitcoin", cur
 					}
 				})
 			);
-			
-			
+
+
 			//Filter transactions by timestamp.
 			/*
 			transactions.sort((obj1, obj2) => {
@@ -428,7 +428,7 @@ const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "bitcoin", cur
 				changeAddressIndex = Math.max.apply(Math, changeAddressIndexes) || 0;
 				if (isNaN(changeAddressIndex)) changeAddressIndex = 0;
 			} catch {}
-			
+
 			const payload = {
 				wallet,
 				selectedCrypto,
@@ -439,7 +439,7 @@ const initialImportSync = ({ wallet = "wallet0", selectedCrypto = "bitcoin", cur
 				changeAddresses,
 				timestamp: moment()
 			};
-			
+
 			dispatch({
 				type: actions.UPDATE_NEXT_AVAILABLE_ADDRESS,
 				payload
@@ -460,7 +460,7 @@ const updateRbfData = ({ wallet = "wallet0", selectedCrypto = "", rbfData = {} }
 				selectedCrypto,
 				rbfData
 			};
-			
+
 			dispatch({
 				type: actions.UPDATE_RBF_DATA,
 				payload
@@ -470,15 +470,15 @@ const updateRbfData = ({ wallet = "wallet0", selectedCrypto = "", rbfData = {} }
 	});
 };
 
-const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAddresses = [], addressIndex = 0, changeAddressIndex = 0, selectedCrypto = "bitcoin", currentBlockHeight = 0, keyDerivationPath = "84", addressType = "bech32" } = {}) => async (dispatch) => {
+const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAddresses = [], addressIndex = 0, changeAddressIndex = 0, selectedCrypto = "sprint", currentBlockHeight = 0, keyDerivationPath = "44", addressType = "bech32" } = {}) => async (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data) => {
 			resolve({ error: true, data });
 		};
-		
+
 		const isConnected = await isOnline();
 		if (isConnected === false) return failure("Offline");
-		
+
 		try {
 			//Create Addresses if none exist
 			if (!addresses.length) {
@@ -492,15 +492,15 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 				const newAddresses = await generateAddresses({ addressAmount: 0, changeAddressAmount: 5, addressIndex: 0, selectedCrypto, wallet, keyDerivationPath, addressType });
 				if (!newAddresses.error) changeAddresses = newAddresses.data.changeAddresses;
 			}
-			
+
 			let allAddresses = addresses.slice(addressIndex, addresses.length);
 			let allChangeAddresses = changeAddresses.slice(changeAddressIndex, changeAddresses.length);
 			allAddresses = allAddresses.concat(allChangeAddresses);
-			
+
 			let allTransactions = [];
 			let foundLastUsedAddress = false;
 			let foundLastUsedChangeAddress = false;
-			
+
 			for (let i = 0; i < 10; i++) {
 				const transactions = await getAllTransactions({
 					allAddresses,
@@ -509,17 +509,17 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 					selectedCrypto,
 					currentBlockHeight
 				});
-				
+
 				if (transactions.error === false && transactions.data.length) allTransactions = allTransactions.concat(transactions.data);
-				
+
 				if (transactions.lastUsedAddress !== null) addressIndex = transactions.lastUsedAddress + 1;
 				foundLastUsedAddress = transactions.lastUsedAddress === null || transactions.lastUsedAddress < addresses.length - 1;
-				
+
 				if (transactions.lastUsedChangeAddress !== null) changeAddressIndex =  transactions.lastUsedChangeAddress + 1;
 				foundLastUsedChangeAddress = transactions.lastUsedChangeAddress === null || transactions.lastUsedChangeAddress < changeAddresses.length - 1;
-				
+
 				allAddresses = [];
-				
+
 				//Create Addresses if none exist
 				if (foundLastUsedAddress === false) {
 					i = 0;
@@ -528,7 +528,7 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 					allAddresses = allAddresses.concat(newAddresses.data.addresses);
 					addresses = addresses.concat(newAddresses.data.addresses);
 				}
-				
+
 				//Create Change Addresses if none exist
 				if (foundLastUsedChangeAddress === false) {
 					i = 0;
@@ -537,7 +537,7 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 					allAddresses = allAddresses.concat(newChangeAddresses.data.changeAddresses);
 					changeAddresses = changeAddresses.concat(newChangeAddresses.data.changeAddresses);
 				}
-				
+
 				//Ensure that our progress is saved as we go.
 				//This is especially important for larger imports that may be interrupted.
 				const payload = {
@@ -549,18 +549,18 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 					addresses,
 					changeAddresses
 				};
-				
+
 				dispatch({
 					type: actions.UPDATE_NEXT_AVAILABLE_ADDRESS,
 					payload
 				});
-				
+
 				if (foundLastUsedAddress && foundLastUsedChangeAddress) {
 					i = 10;
 					break;
 				}
 			}
-			
+
 			const data = {
 				wallet,
 				selectedCrypto,
@@ -575,7 +575,7 @@ const getNextAvailableAddress = ({ wallet = "wallet0", addresses = [], changeAdd
 			console.log(e);
 			failure(e);
 		}
-		
+
 	});
 };
 

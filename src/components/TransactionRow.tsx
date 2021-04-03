@@ -42,7 +42,7 @@ interface TransactionRowComponent {
 const _TransactionRow = (
 	{
 		id = "",
-		coin = "bitcoin",
+		coin = "sprint",
 		address = "",
 		amount = 0,
 		label = "",

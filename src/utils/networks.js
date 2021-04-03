@@ -1,6 +1,6 @@
 // https://en.bitcoin.it/wiki/List_of_address_prefixes
 const networks = {
-	bitcoin: {
+/*	bitcoin: {
 		messagePrefix: '\x18Bitcoin Signed Message:\n',
 		bech32: 'bc',
 		bip32: {
@@ -43,7 +43,7 @@ const networks = {
 		pubKeyHash: 0x6f,
 		scriptHash: 0x3a,
 		wif: 0xef
-	},
+	},*/
 	sprint: {
 		messagePrefix: '\x18Sprint Signed Message:\n',
 		bech32: 'S',
@@ -144,7 +144,7 @@ const defaultWalletShape = {
 	rbfData: objectTypeItems
 };
 
-const getCoinImage = (coin = "bitcoin") => {
+const getCoinImage = (coin = "sprint") => {
 	try {
 		coin = coin.toLowerCase();
 		coin = coin.replace("testnet", "");
@@ -164,7 +164,7 @@ const getCoinImage = (coin = "bitcoin") => {
 	}
 };
 
-const getCoinData = ({ selectedCrypto = "bitcoin", cryptoUnit = "satoshi" }) => {
+const getCoinData = ({ selectedCrypto = "sprint", cryptoUnit = "satoshi" }) => {
 	try {
 		let acronym = "BTC";
 		let satoshi = "satoshi";

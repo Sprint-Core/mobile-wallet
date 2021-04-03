@@ -2,10 +2,6 @@ class Clients {
 	constructor() {
 		this.coin = "sprint";
 		this.mainClient = {
-			bitcoin: false,
-			litecoin: false,
-			bitcoinTestnet: false,
-			litecoinTestnet: false,
 			sprint: true
 		};
 		this.peer = {

@@ -31,16 +31,16 @@ const _Welcome = ({ onClose = () => null, children = <View /> } = {}) => {
 
 				<Text style={styles.text}>Never hesitate to reach out:</Text>
 				<Text
-					onPress={() => Linking.openURL("mailto:support@moonshinewallet.com?subject=Requesting Some Help").catch((e) => console.log(e))}
+					onPress={() => Linking.openURL("mailto:support@sprintpay.net?subject=Requesting Some Help").catch((e) => console.log(e))}
 					style={[styles.text, { marginTop: 5 }]}
 				>
-					<Text style={styles.semiBoldText}>Email: </Text>support@moonshinewallet.com
+					<Text style={styles.semiBoldText}>Email: </Text>support@sprintpay.net
 				</Text>
 				<Text
 					onPress={() => Linking.openURL("https://twitter.com/moonshinewallet").catch((e) => console.log(e))}
 					style={[styles.text, { marginTop: 5 }]}
 				>
-					<Text style={styles.semiBoldText}>Twitter: </Text>@moonshinewallet
+					<Text style={styles.semiBoldText}>Twitter: </Text>@coin_sprint
 				</Text>
 			</View>
 			<XButton style={{marginVertical: 30}} onPress={onClose} />

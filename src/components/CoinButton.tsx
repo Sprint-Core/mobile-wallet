@@ -52,19 +52,19 @@ interface CoinButtonComponent {
 	walletId: string,
 	balance?: number
 }
-const _CoinButton = ({ onCoinPress, cryptoUnit = "satoshi", coin = "bitcoin", label = "Bitcoin", walletId = "wallet0", balance = 0 }: CoinButtonComponent) => {
+const _CoinButton = ({ onCoinPress, cryptoUnit = "satoshi", coin = "sprint", label = "sprint", walletId = "wallet0", balance = 0 }: CoinButtonComponent) => {
 	return (
 		<TouchableOpacity key={`${coin}${walletId}`} onPress={() => onCoinPress({coin, walletId})} style={styles.button}>
 			<View type="card" style={styles.buttonContent}>
-				
+
 				<Image
 					style={styles.buttonImage}
 					source={getCoinImage(coin)}
 				/>
-				
+
 				<Text type="text" style={styles.text}>{label}</Text>
 				<Text type="text" style={styles.subText}>{formatBalance({ balance, coin, cryptoUnit })}</Text>
-			
+
 			</View>
 		</TouchableOpacity>
 	);

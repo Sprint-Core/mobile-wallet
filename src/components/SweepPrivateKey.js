@@ -69,7 +69,7 @@ class SendTransaction extends PureComponent {
 
 			privateKeyData: {
 				keyPair: {},
-				network: "bitcoin",
+				network: "sprint",
 				bech32Utxos: [],
 				p2shUtxos: [],
 				p2pkhUtxos: [],
@@ -248,7 +248,7 @@ class SendTransaction extends PureComponent {
 
 			//This prevents the view from displaying 0 BTC
 			if (balance < 50000 && cryptoUnit === "BTC") {
-				balance = Number((balance * 0.00000001).toFixed(8));
+				balance = Number((balance * 0.00000001).toFixed(6));
 			} else {
 				balance = bitcoinUnits(balance, "satoshi").to(cryptoUnit).value();
 			}
@@ -331,7 +331,7 @@ class SendTransaction extends PureComponent {
 		}
 	};
 
-	getPrivateKeyData = async ({ privateKey = "", network = "bitcoin" } = {}) => {
+	getPrivateKeyData = async ({ privateKey = "", network = "sprint" } = {}) => {
 		return new Promise(async (resolve) => {
 			try {
 				//Switch to the specified network in order to sweep the coins
@@ -345,15 +345,15 @@ class SendTransaction extends PureComponent {
 
 				//Get addresses from the private key
 				const keyPair = bitcoin.ECPair.fromWIF(privateKey, networks[network]);
-				
+
 				const bech32Address = getAddress(keyPair, networks[network], "bech32");
 				let bech32ScriptHash = "";
 				if (bech32Address) bech32ScriptHash = getScriptHash(bech32Address, networks[network]);
-				
+
 				const p2shAddress = getAddress(keyPair, networks[network], "segwit"); //(3) Address
 				let p2shScriptHash = "";
 				if (p2shAddress) p2shScriptHash = getScriptHash(p2shAddress, networks[network]);
-				
+
 				const p2pkhAddress = getAddress(keyPair, networks[network], "legacy");//(1) Address
 				let p2pkhScriptHash = "";
 				if (p2pkhAddress) p2pkhScriptHash = getScriptHash(p2pkhAddress, networks[network]);
@@ -367,7 +367,7 @@ class SendTransaction extends PureComponent {
 						electrum.getAddressScriptHashMempool({ scriptHash: bech32ScriptHash, id: 5, coin: network })
 					]);
 				}
-				
+
 				let p2shBalanceResult = [];
 				if (p2shScriptHash) {
 					this.setState({ loadingMessage: `Private Key Detected.\nFetching Segwit address balance...`, loadingProgress: 0.4 });
@@ -376,7 +376,7 @@ class SendTransaction extends PureComponent {
 						electrum.getAddressScriptHashMempool({ scriptHash: p2shScriptHash, id: 3, coin: network }),
 					]);
 				}
-				
+
 				let p2pkhBalanceResult = [];
 				if (p2pkhScriptHash) {
 					this.setState({ loadingMessage: `Private Key Detected.\nFetching Legacy address balance...`, loadingProgress: 0.5 });

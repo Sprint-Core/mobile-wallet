@@ -25,7 +25,7 @@ TODO:
 Recommended fees are always grossly overestimated.
 Until this is resolved, getRecommendedFee divides that estimation by 4.
  */
-export const getRecommendedFee = ({ coin = "bitcoin", transactionSize = 256 } = {}) => (dispatch) => {
+export const getRecommendedFee = ({ coin = "sprint", transactionSize = 256 } = {}) => (dispatch) => {
 	const DIVIDE_RECOMMENDED_FEE_BY = 10;
 	const MAX_FEE_MULTIPLIER = 4;
 	return new Promise(async (resolve) => {
@@ -130,7 +130,7 @@ export const sendTransactions = ({ transaction = {}, selectedCrypto = "", select
 };
 */
 
-export const sendTransaction = ({ txHex = "", selectedCrypto = "bitcoin", sendTransactionFallback = true } = {}) => (dispatch) => {
+export const sendTransaction = ({ txHex = "", selectedCrypto = "sprint", sendTransactionFallback = true } = {}) => (dispatch) => {
 	return new Promise(async (resolve) => {
 		const failure = (data = "") => {
 			resolve({ error: true, data });

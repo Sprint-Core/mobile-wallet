@@ -144,8 +144,8 @@ class TransactionDetail extends PureComponent {
 						</TouchableOpacity>
 					</View>
 					<View style={[styles.row, { marginTop: 20 }]}>
-						<Button style={{ ...styles.button, backgroundColor: "#813fb1", width: "47%", marginRight: 5 }} textStyle={{...systemWeights.semibold, fontSize: 16 }} text={"Cancel\nTransaction"} onPress={() => this.cancelTransaction(nextAvailableAddress)} />
-						<Button style={{ ...styles.button, backgroundColor: "#813fb1", width: "47%", marginLeft: 5 }} textStyle={{...systemWeights.semibold, fontSize: 16 }} text={"Increase\nFee"} onPress={this.attemptRbf} />
+						<Button style={{ ...styles.button, backgroundColor: "#16afdb", width: "47%", marginRight: 5 }} textStyle={{...systemWeights.semibold, fontSize: 16 }} text={"Cancel\nTransaction"} onPress={() => this.cancelTransaction(nextAvailableAddress)} />
+						<Button style={{ ...styles.button, backgroundColor: "#16afdb", width: "47%", marginLeft: 5 }} textStyle={{...systemWeights.semibold, fontSize: 16 }} text={"Increase\nFee"} onPress={this.attemptRbf} />
 					</View>
 				</View>
 			);
@@ -159,6 +159,7 @@ class TransactionDetail extends PureComponent {
 		if (selectedCrypto === "bitcoinTestnet") url = `https://blockstream.info/testnet/block-height/${block}`;
 		if (selectedCrypto === "litecoin") url = `https://chain.so/block/LTC/${block}`;
 		if (selectedCrypto === "litecoinTestnet") url = `https://chain.so/block/LTC/${block}`;
+		if (selectedCrypto === "sprint") url = `http://explorer.sprintpay.net/block/${hash}`;
 		openUrl(url);
 	};
 	
@@ -169,6 +170,7 @@ class TransactionDetail extends PureComponent {
 		if (selectedCrypto === "bitcoinTestnet") url = `https://blockstream.info/testnet/address/${address}`;
 		if (selectedCrypto === "litecoin") url = `https://chain.so/address/LTC/${address}`;
 		if (selectedCrypto === "litecoinTestnet") url = `https://chain.so/address/LTCTEST/${address}`;
+		if (selectedCrypto === "litecoinTestnet") url = `http://explorer.sprintpay.net/address/${address}`;
 		openUrl(url);
 	};
 	
@@ -187,6 +189,9 @@ class TransactionDetail extends PureComponent {
 				break;
 			case "litecoinTestnet":
 				url = `https://chain.so/tx/LTCTEST/${tx}`;
+				break;
+			case "sprint":
+				url = `http://explorer.sprintpay.net/tx/${tx}`;
 				break;
 			default:
 				return;
@@ -613,7 +618,7 @@ class TransactionDetail extends PureComponent {
 						<View type="text" style={styles.separator} />
 						
 						{this.isActiveUtxo() &&
-						<Button style={{ ...styles.button, backgroundColor: isBlacklisted ? colors.red : "#813fb1" }} text={isBlacklisted ? "Whitelist UTXO" : "Blacklist UTXO"} onPress={this.toggleUtxoBlacklist} />}
+						<Button style={{ ...styles.button, backgroundColor: isBlacklisted ? colors.red : "#16afdb" }} text={isBlacklisted ? "Whitelist UTXO" : "Blacklist UTXO"} onPress={this.toggleUtxoBlacklist} />}
 						
 					</View>
 				</ScrollView>

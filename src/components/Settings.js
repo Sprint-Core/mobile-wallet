@@ -867,13 +867,13 @@ class Settings extends PureComponent {
 
 	requestHelp = () => {
 		try {
-			Linking.openURL("mailto:support@moonshinewallet.com?subject=Requesting Some Help").catch((e) => console.log(e));
+			Linking.openURL("mailto:support@sprintpay.net?subject=Requesting Some Help").catch((e) => console.log(e));
 		} catch {}
 	};
 
 	visitWebsite = () => {
 		try {
-			Linking.openURL("https://moonshinewallet.com").catch((e) => console.log(e));
+			Linking.openURL("https://sprintpay.net").catch((e) => console.log(e));
 		} catch {}
 	};
 
@@ -1135,7 +1135,7 @@ class Settings extends PureComponent {
 							</View>
 
 							<SettingGeneral
-								value={`Need Some Help?\nsupport@moonshinewallet.com`}
+								value={`Need Some Help?\nsupport@sprintpay.net`}
 								col1Image={<FontAwesome name="support" size={50} />}
 								onPress={this.requestHelp}
 								valueStyle={{ fontSize: 14, textAlign: "center", fontWeight: "bold" }}
@@ -1143,7 +1143,7 @@ class Settings extends PureComponent {
 							/>
 
 							<SettingGeneral
-								value={'Visit The Website\nmoonshinewallet.com'}
+								value={'Visit The Website\nsprintpay.net'}
 								col1Image={<MaterialCommunityIcons name="web" size={50} />}
 								onPress={this.visitWebsite}
 								valueStyle={{ fontSize: 14, textAlign: "center", fontWeight: "bold" }}

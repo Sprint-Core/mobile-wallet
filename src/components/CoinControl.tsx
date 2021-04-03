@@ -59,7 +59,7 @@ const _UtxoRow = (
 		whiteListedUtxos = [""],
 		blacklistedUtxos = [""],
 		coinData = { crypto: "", acronym: "" },
-		selectedCrypto = "bitcoin",
+		selectedCrypto = "sprint",
 		cryptoUnit = "satoshi",
 		fiatSymbol = "$"
 	}: UtxoRowComponent) => {
@@ -176,7 +176,7 @@ const _CoinControl = (
 		whiteListedUtxosBalance = 0,
 		onPress = () => null,
 		utxos = [_utxo],
-		selectedCrypto = "bitcoin",
+		selectedCrypto = "sprint",
 		cryptoUnit = "satoshi",
 		exchangeRate = 0,
 		style = {},

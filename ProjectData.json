@@ -31,10 +31,10 @@
       "lightGray": "#efefef",
       "darkGray": "#6e6e6e",
       "white": "#FFF",
-      "purple": "#631e9a",
-      "darkPurple": "#57158f",
-      "mediumPurple": "#5d2390",
-      "lightPurple": "#a25ad7",
+      "purple": "#092754",
+      "darkPurple": "#16afd8",
+      "mediumPurple": "#16afd8",
+      "lightPurple": "#17afd8",
       "green": "#4f8e7b"
     },
     "currencies": {

@@ -113,7 +113,7 @@ export const QRCode = styled(_QRCode).attrs((props) => ({
 `;
 
 export const CopiedLinearGradient = styled(_LinearGradient).attrs((props) => ({
-	colors: props.theme.mode === "light" ? ["#7232a3", "#6e2fa0", "#662798", "#662898", "#632596"] : ["#393654", "#383552", "#373450", "#36344e", "#36334d"]
+	colors: props.theme.mode === "light" ? ["#17b0d9", "#17b0d9", "#37cdf5", "#37cdf5"] : ["#632596", "#072652"]
 }))`
   flex: 1;
   border-color: ${props => props.theme.white};
