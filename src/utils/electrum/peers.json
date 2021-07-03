@@ -26,7 +26,7 @@
     {"host": "electrum.ltc.xurious.com", "ssl": 51002, "tcp": 51001}
   ],
   "sprint": [
-    {"host": "electrum.sprintpay.net", "ssl": 50002, "tcp": 50001},
-    {"host": "electrum.sprintpay.net", "ssl": 50002, "tcp": 50001}
+    {"host": "electrum3.sprintpay.net", "ssl": 50002, "tcp": 50001},
+    {"host": "electrum4.sprintpay.net", "ssl": 50002, "tcp": 50001}
   ]
 }
