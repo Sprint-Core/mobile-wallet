@@ -115,7 +115,7 @@ const _TransactionList = (
 	{
 		transactions = [{ hash: "", timestamp: 0, type: "", status: "sent", block: 0, messages: [], sentAmount: 0, amount: 0 }],
 		blacklistedUtxos = [],
-		selectedCrypto = "",
+		selectedCrypto = "sprint",
 		fiatSymbol = "$",
 		blockHeight = 0,
 		exchangeRate = 0,
